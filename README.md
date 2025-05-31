@@ -2,8 +2,8 @@
 
 This repository contains all code-related material from the thesis. It includes two files:
 
-- `codes.g`: the GAP script with the main function used to compute indecomposable additive set-realizable representations;
-- `results.txt`: the computed representations used to complete the proof in the thesis concerning the classification of orientations of the Dynkin diagram $E_6$.
+- `codes`: the GAP script with the main function used to compute indecomposable additive set-realizable representations;
+- `E_6_representations.pdf`: the computed representations used to complete the proof in the thesis concerning the classification of orientations of the Dynkin diagram $E_6$.
 
 To run the code, you need the [QPA – Quivers and Path Algebras](https://docs.gap-system.org/pkg/qpa/doc/chap6.html#X87EFC38F7BC77B27) package for GAP.
 
