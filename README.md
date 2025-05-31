@@ -11,7 +11,7 @@ To run the code, you need the [QPA – Quivers and Path Algebras](https://docs.g
 
 ## 📌 Code Description
 
-The file `codes.g` contains three GAP functions:
+The file codes contains three GAP functions:
 
 - The first two are auxiliary functions needed by the main one.
 - The third, `FindIndecomposableModule(P, dims)`, is the core function. It searches for an indecomposable additive set-realizable representation over the quiver of the given path algebra.
@@ -58,11 +58,11 @@ For details on how to define a path algebra in QPA, refer to the [official docum
 
 ## 📄 Mathematical Context and Role in the Thesis
 
-The file `results.txt` contains the six additive, set-realizable representations used in the computer-assisted part of the proof of the classification of orientations of the Dynkin diagram **$E_6$**, as presented in the thesis.
+The file `E_6_representations.pdf` contains the six additive, set-realizable representations used in the computer-assisted part of the proof of the classification of orientations of the Dynkin diagram **$E_6$**, as presented in the thesis.
 
 Specifically, in the proof, the existence of a **multiplicative basis** for the representations corresponding to the last two positive roots in the three remaining orientations (labeled 11, 20, and 31) is verified through explicit constructions using the `FindIndecomposableModule` function.
 
-Each diagram in `results.txt` shows a **representation** for one of these six indecomposable modules. These were manually extracted from the output of the function and reformatted for clarity and readability.
+Each diagram in `E_6_representations.pdf` shows a **representation** for one of these six indecomposable modules. These were manually extracted from the output of the function and reformatted for clarity and readability.
 
 The representations were initially computed over the field of rational numbers ℚ (as set in `FindIndecomposableModule`). However, in each case, the **endomorphism ring** was computed to verify that it contains **no non-trivial idempotents** for any field, which ensures that each representation remains **indecomposable over any field**.
 
