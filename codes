@@ -1,0 +1,93 @@
+# Returns a random sublist of 'k' distinct elements taken from 'list'
+RandomSublist := function(list, k)
+  local result, chosen, index;
+
+  result := [];
+  chosen := [];
+
+  while Length(result) < k do
+    index := Random([1..Length(list)]);
+    if not index in chosen then
+      Add(result, list[index]);
+      Add(chosen, index);
+    fi;
+  od;
+
+  return result;
+end;
+
+# Generates an m x n matrix over a field F with special sparsity conditions
+SpecialSparseMatrix := function(m, n, F)
+  local M, i, col, rowsWithOne;
+
+  if n = 1 then
+    # Special case: single column, at least one entry equal to 1
+    M := List([1..m], i -> [ Zero(F) ]);
+    rowsWithOne := RandomSublist([1..m], Random([1..m]));
+    for i in rowsWithOne do
+      M[i][1] := One(F);
+    od;
+  else
+    # General case: exactly one 1 per row in a random column
+    M := List([1..m], i -> List([1..n], j -> Zero(F)));
+    for i in [1..m] do
+      col := Random([1..n]);
+      M[i][col] := One(F);
+    od;
+  fi;
+
+  return M;
+end;
+
+# Tries to find an indecomposable module over the path algebra of P
+FindIndecomposableModule := function(P, dims)
+  local A, B, C, D, G, mat, M, blocks, F, counter;
+
+  # Base field: the rational numbers
+  F := Rationals;
+
+  counter := 0;  # initialize counter
+
+  while true do 
+    Print("cicle");
+    counter := counter + 1;
+
+    # Every 10 attempts print "10"
+    if counter mod 10 = 0 then
+      Print("10 trials\n");
+    fi;
+
+    # Construct matrices with specified dimensions
+    A := SpecialSparseMatrix(dims[1], dims[2], F);
+    B := SpecialSparseMatrix(dims[3], dims[4], F);
+    C := SpecialSparseMatrix(dims[5], dims[6], F);
+    D := SpecialSparseMatrix(dims[7], dims[8], F);
+    G := SpecialSparseMatrix(dims[9], dims[10], F);
+
+    # List of labeled matrices
+    mat := [
+      [ "a", A ],
+      [ "b", B ],
+      [ "c", C ],
+      [ "d", D ],
+      [ "e", G ]
+    ];
+
+    # Construct the module
+    M := RightModuleOverPathAlgebra(P, mat);
+
+    # Decompose into blocks
+    blocks := BlockDecompositionOfModule(M);
+
+    # If there is only one block, the module is indecomposable
+    if Length(blocks) = 1 then
+      Print("Found indecomposable module\n");
+      return rec(
+        result := true,
+        module := M,
+        matrices := rec( A := A, B := B, C := C, D := D, G := G ),
+        decomposition := blocks
+      );
+    fi;
+  od;
+end;
